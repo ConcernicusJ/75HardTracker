@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>75 HARD — Greek Tetrad Program</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dim: #7A5E28;
+    --bronze: #8B5E3C;
+    --cream: #F5EDD8;
+    --parchment: #E8D9B5;
+    --dark: #0D0A06;
+    --dark-mid: #1A1408;
+    --dark-2: #221B0A;
+    --stone: #3A3020;
+    --text: #D4C49A;
+    --muted: #7A6A45;
+
+    --phase-hard: #C0392B;
+    --phase-mod: #E67E22;
+    --phase-easy: #27AE60;
+    --phase-rest: #8B6BA8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--dark);
+    color: var(--text);
+    font-family: 'EB Garamond', serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* BACKGROUND TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 100%, rgba(139,94,60,0.06) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A84C' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 20px 60px; }
+
+  /* HEADER */
+  header {
+    text-align: center;
+    padding: 60px 20px 40px;
+    position: relative;
+  }
+
+  .laurel-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin: 12px 0;
+    color: var(--gold-dim);
+    font-size: 1.4em;
+    letter-spacing: 8px;
+  }
+  .laurel-divider::before, .laurel-divider::after {
+    content: '';
+    height: 1px;
+    width: 80px;
+    background: linear-gradient(90deg, transparent, var(--gold-dim));
+  }
+  .laurel-divider::after { background: linear-gradient(270deg, transparent, var(--gold-dim)); }
+
+  h1 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(2rem, 6vw, 3.6rem);
+    font-weight: 900;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    line-height: 1.1;
+    text-shadow: 0 0 40px rgba(201,168,76,0.3), 0 2px 4px rgba(0,0,0,0.8);
+  }
+
+  .subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.35em;
+    color: var(--muted);
+    margin-top: 8px;
+    text-transform: uppercase;
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 32px 0;
+  }
+
+  .stat-card {
+    background: linear-gradient(135deg, var(--dark-2) 0%, var(--dark-mid) 100%);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 4px;
+    padding: 16px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .stat-num {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* TABS */
+  .tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    margin-bottom: 32px;
+  }
+
+  .tab-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: none;
+    border: none;
+    padding: 12px 24px;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active {
+    color: var(--gold);
+  }
+  .tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+  }
+
+  /* PANEL */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* PHASE LEGEND */
+  .phase-legend {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+    padding: 16px 20px;
+    background: rgba(201,168,76,0.04);
+    border: 1px solid rgba(201,168,76,0.12);
+    border-radius: 4px;
+  }
+
+  .phase-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.1em;
+  }
+
+  .phase-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* CALENDAR GRID */
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+  }
+
+  .day-cell {
+    aspect-ratio: 1;
+    border: 1px solid rgba(201,168,76,0.12);
+    border-radius: 4px;
+    padding: 6px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s;
+    background: var(--dark-2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 64px;
+  }
+
+  .day-cell:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-1px); }
+
+  .day-cell.completed {
+    background: rgba(39,174,96,0.08);
+    border-color: rgba(39,174,96,0.35);
+  }
+
+  .day-cell.today {
+    border-color: var(--gold);
+    box-shadow: 0 0 12px rgba(201,168,76,0.2);
+  }
+
+  .day-cell.future { opacity: 0.5; cursor: default; }
+
+  .day-num {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .day-phase-bar {
+    height: 3px;
+    width: 80%;
+    border-radius: 2px;
+    margin-top: 4px;
+  }
+
+  .check-icon {
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+
+  .phase-icon {
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  /* WORKOUT DETAIL */
+  .workout-section {
+    margin-bottom: 32px;
+  }
+
+  .section-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(201,168,76,0.15);
+  }
+
+  .program-card {
+    background: linear-gradient(135deg, var(--dark-2), var(--dark-mid));
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 6px;
+    padding: 24px;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .program-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+  }
+
+  .program-card.hard::before { background: var(--phase-hard); }
+  .program-card.moderate::before { background: var(--phase-mod); }
+  .program-card.easy::before { background: var(--phase-easy); }
+  .program-card.rest::before { background: var(--phase-rest); }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+
+  .card-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--cream);
+  }
+
+  .card-phase-tag {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid;
+  }
+
+  .hard .card-phase-tag { color: var(--phase-hard); border-color: rgba(192,57,43,0.4); background: rgba(192,57,43,0.1); }
+  .moderate .card-phase-tag { color: var(--phase-mod); border-color: rgba(230,126,34,0.4); background: rgba(230,126,34,0.1); }
+  .easy .card-phase-tag { color: var(--phase-easy); border-color: rgba(39,174,96,0.4); background: rgba(39,174,96,0.1); }
+  .rest .card-phase-tag { color: var(--phase-rest); border-color: rgba(139,107,168,0.4); background: rgba(139,107,168,0.1); }
+
+  .exercise-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 8px;
+  }
+
+  .exercise-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .ex-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+
+  .ex-details { flex: 1; }
+
+  .ex-name {
+    font-size: 0.88rem;
+    color: var(--cream);
+    font-weight: 500;
+  }
+
+  .ex-spec {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 2px;
+    font-style: italic;
+  }
+
+  /* TODAY TRACKER */
+  .today-card {
+    background: linear-gradient(135deg, var(--dark-2), var(--dark-mid));
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 8px;
+    padding: 28px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .today-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .today-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+
+  .today-subtitle {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+
+  .checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    background: rgba(0,0,0,0.25);
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.05);
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+
+  .check-item:hover { border-color: rgba(201,168,76,0.25); }
+
+  .check-item.done {
+    background: rgba(39,174,96,0.08);
+    border-color: rgba(39,174,96,0.3);
+  }
+
+  .check-box {
+    width: 22px; height: 22px;
+    border: 2px solid rgba(201,168,76,0.3);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    font-size: 0.85rem;
+  }
+
+  .check-item.done .check-box {
+    background: var(--phase-easy);
+    border-color: var(--phase-easy);
+    color: white;
+  }
+
+  .check-text {
+    flex: 1;
+    font-size: 0.92rem;
+    color: var(--text);
+  }
+
+  .check-item.done .check-text {
+    text-decoration: line-through;
+    color: var(--muted);
+  }
+
+  .complete-day-btn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+    border: none;
+    border-radius: 4px;
+    color: var(--dark);
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .complete-day-btn:hover {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(201,168,76,0.3);
+  }
+
+  .complete-day-btn:disabled {
+    opacity: 0.5;
+    cursor: default;
+    transform: none;
+  }
+
+  /* PROGRESS BAR */
+  .progress-wrap {
+    margin-bottom: 24px;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .progress-track {
+    height: 6px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+    border-radius: 3px;
+    transition: width 0.5s ease;
+  }
+
+  /* RULES PANEL */
+  .rules-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .rule-card {
+    background: var(--dark-2);
+    border: 1px solid rgba(201,168,76,0.12);
+    border-radius: 6px;
+    padding: 18px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .rule-icon { font-size: 1.4rem; flex-shrink: 0; }
+
+  .rule-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.82rem;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  .rule-text {
+    font-size: 0.84rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* QUOTE */
+  .greek-quote {
+    text-align: center;
+    padding: 28px 20px;
+    border-top: 1px solid rgba(201,168,76,0.1);
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+    margin: 32px 0;
+  }
+
+  .greek-quote p {
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .greek-quote cite {
+    display: block;
+    margin-top: 10px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+  }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--dark-mid);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 8px;
+    padding: 32px;
+    max-width: 520px;
+    width: 100%;
+    position: relative;
+  }
+
+  .modal-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.2rem;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+
+  .modal-phase {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .modal-exercises { list-style: none; margin-bottom: 20px; }
+
+  .modal-ex {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+  }
+  .modal-ex:last-child { border-bottom: none; }
+  .modal-ex-spec { color: var(--gold-dim); font-style: italic; font-size: 0.82rem; }
+
+  .modal-close {
+    position: absolute;
+    top: 16px; right: 16px;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--gold); }
+
+  .modal-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--dark);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 4px;
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .modal-btn:hover { background: rgba(201,168,76,0.1); }
+
+  @media (max-width: 600px) {
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .calendar-grid { grid-template-columns: repeat(5, 1fr); }
+    .rules-grid { grid-template-columns: 1fr; }
+    .tabs { flex-wrap: wrap; }
+    .tab-btn { padding: 10px 14px; font-size: 0.7rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="laurel-divider">⚡</div>
+    <h1>75 HARD</h1>
+    <p class="subtitle">Greek Tetrad Training Protocol</p>
+    <div class="laurel-divider">🏛</div>
+  </header>
+
+  <!-- Stats Bar -->
+  <div class="stats-bar">
+    <div class="stat-card">
+      <span class="stat-num" id="stat-day">1</span>
+      <span class="stat-label">Current Day</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num" id="stat-completed">0</span>
+      <span class="stat-label">Days Completed</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num" id="stat-streak">0</span>
+      <span class="stat-label">Current Streak</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num" id="stat-remaining">75</span>
+      <span class="stat-label">Days Remaining</span>
+    </div>
+  </div>
+
+  <!-- Progress Bar -->
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>Progress</span>
+      <span id="progress-pct">0%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('today')">Today</button>
+    <button class="tab-btn" onclick="switchTab('calendar')">Calendar</button>
+    <button class="tab-btn" onclick="switchTab('program')">Program</button>
+    <button class="tab-btn" onclick="switchTab('rules')">Rules</button>
+  </div>
+
+  <!-- TODAY PANEL -->
+  <div class="panel active" id="panel-today">
+    <div class="today-card" id="today-card">
+      <div class="today-title" id="today-heading">Day 1 — Hard Day</div>
+      <div class="today-subtitle" id="today-subtitle">Full-Body Power · Day of the Warrior</div>
+      <ul class="checklist" id="today-checklist"></ul>
+      <button class="complete-day-btn" id="complete-btn" onclick="completeDay()">Mark Day Complete</button>
+    </div>
+
+    <div class="greek-quote">
+      <p id="daily-quote">"No man has the right to be an amateur in the matter of physical training. It is a shame for a man to grow old without seeing the beauty and strength of which his body is capable."</p>
+      <cite id="daily-cite">— Socrates</cite>
+    </div>
+  </div>
+
+  <!-- CALENDAR PANEL -->
+  <div class="panel" id="panel-calendar">
+    <div class="phase-legend">
+      <div class="phase-badge"><div class="phase-dot" style="background:var(--phase-mod)"></div>Prep & Plyo (Proparaskeue)</div>
+      <div class="phase-badge"><div class="phase-dot" style="background:var(--phase-hard)"></div>Heavy Strength (Anabasis)</div>
+      <div class="phase-badge"><div class="phase-dot" style="background:var(--phase-rest)"></div>Mobility & Yoga (Katharsis)</div>
+      <div class="phase-badge"><div class="phase-dot" style="background:var(--phase-easy)"></div>Skills & Mastery (Techne)</div>
+    </div>
+    <div class="calendar-grid" id="calendar-grid"></div>
+  </div>
+
+  <!-- PROGRAM PANEL -->
+  <div class="panel" id="panel-program">
+    <div class="section-title">The Greek Tetrad System</div>
+
+    <div class="program-card moderate">
+      <div class="card-header">
+        <div>
+          <div class="card-title">🔥 Day 1 — Proparaskeue (Prep & Plyo)</div>
+          <div style="font-size:0.82rem;color:var(--muted);margin-top:4px;font-style:italic;">The preparation. Prime the nervous system. Activate fast-twitch fibers.</div>
+        </div>
+        <div class="card-phase-tag">Plyometric</div>
+      </div>
+      <ul class="exercise-list">
+        <li class="exercise-item"><span class="ex-icon">🦘</span><div class="ex-details"><div class="ex-name">Box Jumps</div><div class="ex-spec">5 × 8 — max height, full reset each rep</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">⚡</span><div class="ex-details"><div class="ex-name">Depth Drops → Jump</div><div class="ex-spec">4 × 6 — reactive strength focus</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">🤸</span><div class="ex-details"><div class="ex-name">Clap / Plyometric Push-ups</div><div class="ex-spec">5 × 10 — explosive concentric</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">🏃</span><div class="ex-details"><div class="ex-name">Sprint Intervals</div><div class="ex-spec">10 × 40m @ 95% effort, walk back</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">🔗</span><div class="ex-details"><div class="ex-name">Banded Lateral Jumps</div><div class="ex-spec">4 × 10/side — lateral power</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">🌀</span><div class="ex-details"><div class="ex-name">Rotational Med Ball Slam</div><div class="ex-spec">4 × 10 — full hip drive</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">🏃</span><div class="ex-details"><div class="ex-name">Outdoor Cardio</div><div class="ex-spec">45 min run / interval sprints</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">💧</span><div class="ex-details"><div class="ex-name">Water</div><div class="ex-spec">1 gallon minimum</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">📖</span><div class="ex-details"><div class="ex-name">Reading</div><div class="ex-spec">10 pages nonfiction</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">📷</span><div class="ex-details"><div class="ex-name">Progress Photo</div><div class="ex-spec">Daily documentation</div></div></li>
+      </ul>
+    </div>
+
+    <div class="program-card hard">
+      <div class="card-header">
+        <div>
+          <div class="card-title">⚔️ Day 2 — Anabasis (Heavy Strength)</div>
+          <div style="font-size:0.82rem;color:var(--muted);margin-top:4px;font-style:italic;">The ascent. Maximum load. Forge iron into muscle.</div>
+        </div>
+        <div class="card-phase-tag">Strength</div>
+      </div>
+      <ul class="exercise-list">
+        <li class="exercise-item"><span class="ex-icon">🏋️</span><div class="ex-details"><div class="ex-name">Back Squat</div><div class="ex-spec">5 × 5 @ 80–85% 1RM</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">💪</span><div class="ex-details"><div class="ex-name">Deadlift</div><div class="ex-spec">4 × 4 @ 82% 1RM</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">🤸</span><div class="ex-details"><div class="ex-name">Bench Press</div><div class="ex-spec">5 × 5 @ 80% 1RM</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">🔗</span><div class="ex-details"><div class="ex-name">Weighted Pull-ups</div><div class="ex-spec">4 × 6 — heavy, strict form</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">🔥</span><div class="ex-details"><div class="ex-name">Barbell Overhead Press</div><div class="ex-spec">4 × 5 @ 78% 1RM</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">💪</span><div class="ex-details"><div class="ex-name">Barbell Row</div><div class="ex-spec">4 × 6 @ 75% — controlled eccentric</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">🏃</span><div class="ex-details"><div class="ex-name">Outdoor Cardio</div><div class="ex-spec">45 min steady-state run / row</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">💧</span><div class="ex-details"><div class="ex-name">Water</div><div class="ex-spec">1 gallon minimum</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">📖</span><div class="ex-details"><div class="ex-name">Reading</div><div class="ex-spec">10 pages nonfiction</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">📷</span><div class="ex-details"><div class="ex-name">Progress Photo</div><div class="ex-spec">Daily documentation</div></div></li>
+      </ul>
+    </div>
+
+    <div class="program-card rest">
+      <div class="card-header">
+        <div>
+          <div class="card-title">🌿 Day 3 — Katharsis (Mobility & Yoga)</div>
+          <div style="font-size:0.82rem;color:var(--muted);margin-top:4px;font-style:italic;">The purification. Active recovery. Cleanse the body, restore the vessel.</div>
+        </div>
+        <div class="card-phase-tag">Recovery</div>
+      </div>
+      <ul class="exercise-list">
+        <li class="exercise-item"><span class="ex-icon">🧘</span><div class="ex-details"><div class="ex-name">Sun Salutation Flow</div><div class="ex-spec">3 × 10 min rounds — warm-up</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">🌀</span><div class="ex-details"><div class="ex-name">Hip Flexor Sequence</div><div class="ex-spec">Pigeon, Low Lunge, Dragon — 2 min/side</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">🦵</span><div class="ex-details"><div class="ex-name">Hamstring Flow</div><div class="ex-spec">Forward fold, Splits prep — 90 sec/side</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">🌊</span><div class="ex-details"><div class="ex-name">Thoracic Mobility</div><div class="ex-spec">Cat-cow, T-spine rotation, Thread needle</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">💨</span><div class="ex-details"><div class="ex-name">Shoulder & Chest Opening</div><div class="ex-spec">Eagle, Cow-face, Doorway stretch</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">🧘</span><div class="ex-details"><div class="ex-name">Yoga Nidra / Savasana</div><div class="ex-spec">10–15 min deep relaxation</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">🏃</span><div class="ex-details"><div class="ex-name">Outdoor Walk</div><div class="ex-spec">45 min mindful walking — low intensity</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">💧</span><div class="ex-details"><div class="ex-name">Water</div><div class="ex-spec">1 gallon minimum</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">📖</span><div class="ex-details"><div class="ex-name">Reading</div><div class="ex-spec">10 pages nonfiction</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">📷</span><div class="ex-details"><div class="ex-name">Progress Photo</div><div class="ex-spec">Daily documentation</div></div></li>
+      </ul>
+    </div>
+
+    <div class="program-card easy">
+      <div class="card-header">
+        <div>
+          <div class="card-title">🎯 Day 4 — Techne (Skills & Mastery)</div>
+          <div style="font-size:0.82rem;color:var(--muted);margin-top:4px;font-style:italic;">The craft. Deliberate practice. Elevate technique over ego.</div>
+        </div>
+        <div class="card-phase-tag">Skills</div>
+      </div>
+      <ul class="exercise-list">
+        <li class="exercise-item"><span class="ex-icon">🎯</span><div class="ex-details"><div class="ex-name">Handstand / Gymnastics Work</div><div class="ex-spec">15 min — wall walks, freestanding holds</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">🤸</span><div class="ex-details"><div class="ex-name">Olympic Lift Technique</div><div class="ex-spec">Power Clean or Snatch — light, 5 × 5 form focus</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">🔗</span><div class="ex-details"><div class="ex-name">Muscle-up / Bar Skills</div><div class="ex-spec">Progressions — 4 × 5 attempts or transitions</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">⚖️</span><div class="ex-details"><div class="ex-name">Single-Leg Balance Work</div><div class="ex-spec">Pistol squat progression — 4 × 6/leg</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">🌀</span><div class="ex-details"><div class="ex-name">Agility Ladder Drills</div><div class="ex-spec">10 min — footwork, lateral speed, coordination</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">🎽</span><div class="ex-details"><div class="ex-name">Sport-Specific Skill</div><div class="ex-spec">Your chosen sport / movement practice — 15 min</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">🏃</span><div class="ex-details"><div class="ex-name">Outdoor Cardio</div><div class="ex-spec">45 min light jog / sport play</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">💧</span><div class="ex-details"><div class="ex-name">Water</div><div class="ex-spec">1 gallon minimum</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">📖</span><div class="ex-details"><div class="ex-name">Reading</div><div class="ex-spec">10 pages nonfiction</div></div></li>
+        <li class="exercise-item"><span class="ex-icon">📷</span><div class="ex-details"><div class="ex-name">Progress Photo</div><div class="ex-spec">Daily documentation</div></div></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- RULES PANEL -->
+  <div class="panel" id="panel-rules">
+    <div class="section-title">The Laws of 75 Hard</div>
+    <div class="rules-grid">
+      <div class="rule-card"><div class="rule-icon">🏋️</div><div><div class="rule-title">Two Workouts Daily</div><div class="rule-text">Complete two 45-minute workouts every single day. One must be performed outdoors regardless of weather.</div></div></div>
+      <div class="rule-card"><div class="rule-icon">🥗</div><div><div class="rule-title">Strict Diet</div><div class="rule-text">Follow a structured nutritional plan. Zero alcohol. Zero cheat meals. Choose your plan before day 1 and commit.</div></div></div>
+      <div class="rule-card"><div class="rule-icon">💧</div><div><div class="rule-title">One Gallon of Water</div><div class="rule-text">Drink one full gallon (128 oz / ~3.8L) of water every single day. No substitutions.</div></div></div>
+      <div class="rule-card"><div class="rule-icon">📖</div><div><div class="rule-title">Read 10 Pages</div><div class="rule-text">Read 10 pages of a nonfiction, self-improvement, or educational book. Audiobooks do not count.</div></div></div>
+      <div class="rule-card"><div class="rule-icon">📷</div><div><div class="rule-title">Progress Photo</div><div class="rule-text">Take a progress photo every day to document your physical transformation over the 75 days.</div></div></div>
+      <div class="rule-card"><div class="rule-icon">⚠️</div><div><div class="rule-title">No Exceptions</div><div class="rule-text">Miss a single task on any day and you restart from Day 1. No modifications. No compromises. No excuses.</div></div></div>
+    </div>
+
+    <div class="section-title">The Greek Tetrad Method</div>
+    <div class="program-card" style="border-left: 3px solid var(--gold);">
+      <p style="line-height:1.9;font-size:0.95rem;color:var(--text);">
+        The <strong style="color:var(--gold)">Greek Tetrad</strong> was a 4-day training cycle used by ancient Greek athletes preparing for the Olympic Games, documented by philosopher Philostratus. Each day served a distinct physiological purpose. This program adapts that ancient wisdom into a modern performance framework:<br><br>
+        <strong style="color:var(--phase-mod)">Day 1 — Proparaskeue (Prep & Plyo):</strong> The preparation. Plyometric training primes the nervous system, activates fast-twitch muscle fibers, and builds explosive power. Sprint intervals and reactive jumps forge athletic readiness for the heavy work to come.<br><br>
+        <strong style="color:var(--phase-hard)">Day 2 — Anabasis (Heavy Strength):</strong> The ascent. Maximum load on the compound lifts — squat, deadlift, press, pull. The body is driven to its structural limits. This is where raw strength is built.<br><br>
+        <strong style="color:var(--phase-rest)">Day 3 — Katharsis (Mobility & Yoga):</strong> The purification. Active recovery through yoga flows, joint mobility work, and mindful walking. The body is cleansed of fatigue, connective tissue is restored, and the nervous system is reset for peak performance.<br><br>
+        <strong style="color:var(--phase-easy)">Day 4 — Techne (Skills & Mastery):</strong> The craft. Deliberate skill practice — gymnastics, Olympic lift technique, sport-specific work. High neurological quality at managed intensity. Mastery is built through precision, not pressure.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open')">✕</button>
+    <div class="modal-title" id="modal-title">Day 1</div>
+    <div class="modal-phase" id="modal-phase">Hard Day — Anabasis</div>
+    <ul class="modal-exercises" id="modal-exercises"></ul>
+    <button class="modal-btn" onclick="document.getElementById('modal').classList.remove('open')">Close</button>
+  </div>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+const PHASES = ['plyo','strength','rest','skills'];
+const PHASE_NAMES = {
+  plyo: 'Proparaskeue — Prep & Plyo',
+  strength: 'Anabasis — Heavy Strength',
+  rest: 'Katharsis — Mobility & Yoga',
+  skills: 'Techne — Skills & Mastery'
+};
+const PHASE_COLORS = {
+  plyo: 'var(--phase-mod)',
+  strength: 'var(--phase-hard)',
+  rest: 'var(--phase-rest)',
+  skills: 'var(--phase-easy)'
+};
+const PHASE_EMOJI = { plyo:'🔥', strength:'⚔️', rest:'🌿', skills:'🎯' };
+
+const QUOTES = [
+  { text: "No man has the right to be an amateur in the matter of physical training. It is a shame for a man to grow old without seeing the beauty and strength of which his body is capable.", cite: "Socrates" },
+  { text: "We are what we repeatedly do. Excellence, then, is not an act, but a habit.", cite: "Aristotle" },
+  { text: "The first and greatest victory is to conquer yourself; to be conquered by yourself is of all things most shameful and vile.", cite: "Plato" },
+  { text: "Make the best use of what is in your power, and take the rest as it happens.", cite: "Epictetus" },
+  { text: "Waste no more time arguing about what a good man should be. Be one.", cite: "Marcus Aurelius" },
+  { text: "He who conquers himself is the mightiest warrior.", cite: "Confucius" },
+  { text: "The secret of change is to focus all of your energy not on fighting the old, but on building the new.", cite: "Socrates" },
+  { text: "Difficulties strengthen the mind, as labor does the body.", cite: "Seneca" }
+];
+
+const CHECKLISTS = {
+  plyo: [
+    { label: '🔥 Workout 1: Plyometric & Prep Training (45 min)', id: 'w1' },
+    { label: '🏃 Workout 2: Outdoor Cardio (45 min)', id: 'w2' },
+    { label: '💧 1 Gallon of Water', id: 'water' },
+    { label: '📖 Read 10 Pages (nonfiction)', id: 'read' },
+    { label: '🥗 Strict Diet — No Cheat Meals', id: 'diet' },
+    { label: '📷 Progress Photo', id: 'photo' },
+  ],
+  strength: [
+    { label: '⚔️ Workout 1: Heavy Compound Lifting (45 min)', id: 'w1' },
+    { label: '🏃 Workout 2: Outdoor Cardio (45 min)', id: 'w2' },
+    { label: '💧 1 Gallon of Water', id: 'water' },
+    { label: '📖 Read 10 Pages (nonfiction)', id: 'read' },
+    { label: '🥗 Strict Diet — No Cheat Meals', id: 'diet' },
+    { label: '📷 Progress Photo', id: 'photo' },
+  ],
+  rest: [
+    { label: '🧘 Yoga & Mobility Flow (45 min indoor)', id: 'w1' },
+    { label: '🏃 Outdoor Walk — Mindful (45 min)', id: 'w2' },
+    { label: '💧 1 Gallon of Water', id: 'water' },
+    { label: '📖 Read 10 Pages (nonfiction)', id: 'read' },
+    { label: '🥗 Strict Diet — No Cheat Meals', id: 'diet' },
+    { label: '📷 Progress Photo', id: 'photo' },
+  ],
+  skills: [
+    { label: '🎯 Workout 1: Skills & Technique Work (45 min)', id: 'w1' },
+    { label: '🏃 Workout 2: Outdoor Light Cardio (45 min)', id: 'w2' },
+    { label: '💧 1 Gallon of Water', id: 'water' },
+    { label: '📖 Read 10 Pages (nonfiction)', id: 'read' },
+    { label: '🥗 Strict Diet — No Cheat Meals', id: 'diet' },
+    { label: '📷 Progress Photo', id: 'photo' },
+  ]
+};
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let state = JSON.parse(localStorage.getItem('tetrad75') || 'null') || {
+  startDay: null,
+  completedDays: {},
+  todayChecks: {}
+};
+
+function getPhase(dayNum) {
+  // Day 1=plyo, 2=strength, 3=rest, 4=skills, repeat
+  const mod = dayNum % 4;
+  if (mod === 1) return 'plyo';
+  if (mod === 2) return 'strength';
+  if (mod === 3) return 'rest';
+  return 'skills';
+}
+
+function getCurrentDay() {
+  if (!state.startDay) return 1;
+  const start = new Date(state.startDay);
+  const now = new Date();
+  const diff = Math.floor((now - start) / 86400000) + 1;
+  return Math.min(Math.max(diff, 1), 75);
+}
+
+function save() {
+  localStorage.setItem('tetrad75', JSON.stringify(state));
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+function init() {
+  if (!state.startDay) {
+    state.startDay = new Date().toISOString().split('T')[0];
+    save();
+  }
+  renderStats();
+  renderToday();
+  renderCalendar();
+  setDailyQuote();
+}
+
+function setDailyQuote() {
+  const day = getCurrentDay();
+  const q = QUOTES[(day - 1) % QUOTES.length];
+  document.getElementById('daily-quote').textContent = `"${q.text}"`;
+  document.getElementById('daily-cite').textContent = `— ${q.cite}`;
+}
+
+function renderStats() {
+  const day = getCurrentDay();
+  const completed = Object.values(state.completedDays).filter(Boolean).length;
+  let streak = 0;
+  for (let i = day - 1; i >= 1; i--) {
+    if (state.completedDays[i]) streak++;
+    else break;
+  }
+  document.getElementById('stat-day').textContent = day;
+  document.getElementById('stat-completed').textContent = completed;
+  document.getElementById('stat-streak').textContent = streak;
+  document.getElementById('stat-remaining').textContent = Math.max(0, 75 - completed);
+  const pct = Math.round((completed / 75) * 100);
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-fill').style.width = pct + '%';
+}
+
+function renderToday() {
+  const day = getCurrentDay();
+  const phase = getPhase(day);
+  const checks = CHECKLISTS[phase];
+  const todayDone = state.completedDays[day];
+
+  document.getElementById('today-heading').textContent = `Day ${day} — ${PHASE_NAMES[phase]}`;
+  const subtitles = {
+    plyo: 'Explosive Prep · Prime the Engine · Activate Fast-Twitch',
+    strength: 'Maximum Load · The Ascent · Forge the Body',
+    rest: 'Active Recovery · Purification · Restore the Vessel',
+    skills: 'Precision & Craft · Sharpen the Mind · Master the Movement'
+  };
+  document.getElementById('today-subtitle').textContent = subtitles[phase];
+
+  const list = document.getElementById('today-checklist');
+  list.innerHTML = '';
+
+  if (!state.todayChecks[day]) state.todayChecks[day] = {};
+
+  checks.forEach(c => {
+    const done = state.todayChecks[day][c.id];
+    const li = document.createElement('li');
+    li.className = 'check-item' + (done ? ' done' : '');
+    li.innerHTML = `<div class="check-box">${done ? '✓' : ''}</div><span class="check-text">${c.label}</span>`;
+    li.onclick = () => toggleCheck(day, c.id, li);
+    if (todayDone) li.style.pointerEvents = 'none';
+    list.appendChild(li);
+  });
+
+  const btn = document.getElementById('complete-btn');
+  if (todayDone) {
+    btn.textContent = '✓ Day ' + day + ' Complete — Well Done, Warrior';
+    btn.disabled = true;
+    btn.style.background = 'rgba(39,174,96,0.2)';
+    btn.style.color = 'var(--phase-easy)';
+    btn.style.border = '1px solid rgba(39,174,96,0.4)';
+  } else {
+    btn.textContent = 'Mark Day Complete';
+    btn.disabled = false;
+    btn.style.background = '';
+    btn.style.color = '';
+    btn.style.border = '';
+  }
+}
+
+function toggleCheck(day, id, el) {
+  if (!state.todayChecks[day]) state.todayChecks[day] = {};
+  state.todayChecks[day][id] = !state.todayChecks[day][id];
+  el.classList.toggle('done');
+  el.querySelector('.check-box').textContent = state.todayChecks[day][id] ? '✓' : '';
+  save();
+}
+
+function completeDay() {
+  const day = getCurrentDay();
+  state.completedDays[day] = true;
+  save();
+  renderToday();
+  renderStats();
+  renderCalendar();
+  // Celebrate
+  const btn = document.getElementById('complete-btn');
+  btn.textContent = '⚡ VICTORIOUS! ⚡';
+  setTimeout(() => renderToday(), 1200);
+}
+
+function renderCalendar() {
+  const grid = document.getElementById('calendar-grid');
+  grid.innerHTML = '';
+  const day = getCurrentDay();
+
+  for (let d = 1; d <= 75; d++) {
+    const phase = getPhase(d);
+    const completed = state.completedDays[d];
+    const isToday = d === day;
+    const isFuture = d > day;
+
+    const cell = document.createElement('div');
+    cell.className = 'day-cell' +
+      (completed ? ' completed' : '') +
+      (isToday ? ' today' : '') +
+      (isFuture && !isToday ? ' future' : '');
+
+    cell.innerHTML = `
+      <div class="day-num">${d}</div>
+      <div class="phase-icon">${completed ? '✅' : (isToday ? '🔥' : PHASE_EMOJI[phase])}</div>
+      <div class="day-phase-bar" style="background:${PHASE_COLORS[phase]};opacity:${isFuture ? 0.3 : 0.8}"></div>
+    `;
+
+    if (!isFuture) {
+      cell.onclick = () => openDayModal(d);
+    }
+
+    grid.appendChild(cell);
+  }
+}
+
+function openDayModal(d) {
+  const phase = getPhase(d);
+  document.getElementById('modal-title').textContent = `Day ${d} — ${PHASE_EMOJI[phase]}`;
+  document.getElementById('modal-phase').textContent = PHASE_NAMES[phase];
+  const ul = document.getElementById('modal-exercises');
+  ul.innerHTML = '';
+  CHECKLISTS[phase].forEach(c => {
+    const li = document.createElement('li');
+    li.className = 'modal-ex';
+    const done = state.todayChecks[d] && state.todayChecks[d][c.id];
+    li.innerHTML = `<span>${c.label}</span><span class="modal-ex-spec">${done ? '✓ Done' : (d === getCurrentDay() ? 'Today' : '')}</span>`;
+    ul.appendChild(li);
+  });
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal(e) {
+  if (e.target.id === 'modal') document.getElementById('modal').classList.remove('open');
+}
+
+function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('panel-' + name).classList.add('active');
+}
+
+// ── START ─────────────────────────────────────────────────────────────────────
+init();
+</script>
+</body>
+</html>
